@@ -48,11 +48,34 @@ RUN mkdir -p /opt/gdal \
  && cd / \
  && rm -Rf /opt/gdal
 
+RUN mvn install:install-file \
+    -Dfile=/usr/local/share/java/gdal-3.6.2.jar \
+    -DgroupId=org.gdal \
+    -DartifactId=gdal \
+    -Dversion=3.6.2 \
+    -Dpackaging=jar \
+    -DgeneratePom=true
+
 # Make a symlink in /usr/lib so we don't need LD_LIBRARY_PATH to load it dynamically from Java.
 RUN ln -sf /usr/local/share/java/libgdalalljni.so  /usr/local/lib
 
 # Update ld.so configuration
 RUN ldconfig /etc/ld.so.conf.d
+
+# Install RUGGED as it is a fork for now
+RUN mkdir -p /opt/rugged \
+ && cd /opt/rugged \
+ && curl -Lo rugged-4.0.1.jar https://gitlab.eopf.copernicus.eu/geolib/sxgeo/-/raw/main/jar/rugged-4.0.1.jar  \
+ && mvn install:install-file \
+   -Dfile=rugged-4.0.1.jar \
+   -DgroupId=org.orekit \
+   -DartifactId=rugged \
+   -Dversion=4.0.1 \
+   -Dpackaging=jar \
+   -DgeneratePom=true \
+ && cd / \
+ && rm -Rf /opt/rugged
+
 
 WORKDIR /Sen2vm
 
