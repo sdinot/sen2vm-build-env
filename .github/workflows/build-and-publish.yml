@@ -24,6 +24,9 @@ name: Build CI Image
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc[0-9]+'
   pull_request:
     branches: [ "main" ]
 
