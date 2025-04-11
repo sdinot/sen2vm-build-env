@@ -15,8 +15,7 @@ RUN apk add --no-cache \
     unzip \
     bash \
     maven \
-    apache-ant \
-    jq
+    apache-ant
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 ENV LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
